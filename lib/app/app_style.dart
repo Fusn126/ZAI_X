@@ -42,7 +42,7 @@ class AppStyle {
     cardColor: const Color(0xff424242),
     colorScheme: AppColor.colorSchemeDark,
     scaffoldBackgroundColor: Colors.black,
-    tabBarTheme: const TabBarTheme(
+    tabBarTheme: const TabBarThemeData(
       indicatorColor: Colors.blue,
     ),
     appBarTheme: AppBarTheme(
