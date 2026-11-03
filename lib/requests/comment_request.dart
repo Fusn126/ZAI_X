@@ -18,7 +18,7 @@ class CommentRequest {
     required int objId,
     int sortBy = 1,
     int page = 1,
-    int pageSize = 30,
+    int pageSize = 24,
   }) async {
     List<CommentItem> ls = [];
     Map result = await HttpClient.instance.getJson(
@@ -31,6 +31,7 @@ class CommentRequest {
         "page": page,
         "size": pageSize,
       },
+      needLogin: true,
     );
     HttpClient.checkErrno(result);
     if (result["data"]["commentIdList"] == null) {
@@ -115,6 +116,7 @@ class CommentRequest {
     var result = await HttpClient.instance.postJson(
       "/comment/create",
       baseUrl: Api.BASE_URL,
+      queryParameters: Api.getDefaultParameter(),
       data: {
         "obj_id": objId,
         "to_comment_id": toCommentId,

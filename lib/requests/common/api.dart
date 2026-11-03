@@ -55,8 +55,9 @@ class Api {
   /// 默认的参数
   static Map<String, dynamic> getDefaultParameter({bool withUid = false}) {
     var map = <String, dynamic>{
-      "channel": "android",
-      //"version": VERSION,
+      "platform": "android",
+      "_v": "2.3.9",
+      "_c": "101_01_01_000",
       "timestamp": timeStamp
     };
     if (withUid && UserService.instance.logined.value) {
