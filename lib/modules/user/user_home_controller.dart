@@ -58,7 +58,8 @@ class UserHomeController extends GetxController {
         ),
       ),
       applicationName: "ZAI-X",
-      applicationVersion: "Ver ${Utils.packageInfo.version}",
+      applicationVersion:
+          "Ver ${Utils.packageInfo.version} (${Utils.packageInfo.buildNumber})",
       applicationLegalese: "@xiaoyaocz",
     ));
   }

@@ -56,8 +56,9 @@ class CategoryDetailController
           title: "状态",
           items: [
             ComicCategoryFilterItemModel(tagId: 0, tagName: "全部"),
-            ComicCategoryFilterItemModel(tagId: 1, tagName: "连载中"),
-            ComicCategoryFilterItemModel(tagId: 2, tagName: "已完结"),
+            ComicCategoryFilterItemModel(tagId: 2309, tagName: "连载中"),
+            ComicCategoryFilterItemModel(tagId: 2310, tagName: "已完结"),
+            ComicCategoryFilterItemModel(tagId: 29205, tagName: "短篇"),
           ],
         ),
       );
