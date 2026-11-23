@@ -50,17 +50,6 @@ class NovelCategoryDetailController
           ],
         )..selectId.value = 1,
       );
-      filters.insert(
-        1,
-        NovelCategoryFilterModel(
-          title: "状态",
-          items: [
-            NovelCategoryFilterItemModel(tagId: 0, tagName: "全部"),
-            NovelCategoryFilterItemModel(tagId: 1, tagName: "连载中"),
-            NovelCategoryFilterItemModel(tagId: 2, tagName: "已完结"),
-          ],
-        ),
-      );
     } catch (e) {
       SmartDialog.showToast(e.toString());
     }
@@ -72,12 +61,11 @@ class NovelCategoryDetailController
       return await request.categoryNovel(cateId: id, page: page - 1);
     } else {
       var sort = filters.first.selectId.value;
-      var status = filters[1].selectId.value;
       var cateId =
           filters.firstWhereOrNull((x) => x.title == "题材")?.selectId.value ?? 0;
 
       return await request.categoryNovel(
-          cateId: cateId, status: status, sort: sort, page: page - 1);
+          cateId: cateId, sort: sort, page: page - 1);
     }
   }
 }

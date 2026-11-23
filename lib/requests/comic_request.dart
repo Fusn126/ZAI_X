@@ -137,7 +137,7 @@ class ComicRequest {
     var result = await HttpClient.instance.getJson('/comic/filter/list',
         queryParameters: {
           "theme": id,
-          "status": 0,
+          "status": status,
           "sortType": sort,
           "page": page,
           "size": 20,
