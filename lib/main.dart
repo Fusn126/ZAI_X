@@ -97,6 +97,9 @@ class DMZJApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'ZAI-X',
+      // 使用GetX自带的转场动画，避免框架默认转场(FadeForwards/Zoom)绘制
+      // colorScheme.surface 灰色scrim，导致深色模式跳转页面时出现灰屏闪烁
+      defaultTransition: Transition.cupertino,
       scrollBehavior: AppScrollBehavior(),
       theme: AppStyle.lightTheme,
       darkTheme: AppStyle.darkTheme,

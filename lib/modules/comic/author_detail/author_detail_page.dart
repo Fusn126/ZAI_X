@@ -6,8 +6,7 @@ import 'package:zai_x/modules/comic/author_detail/author_detail_controller.dart'
 import 'package:zai_x/routes/app_navigator.dart';
 import 'package:zai_x/services/user_service.dart';
 import 'package:zai_x/widgets/net_image.dart';
-import 'package:zai_x/widgets/status/app_error_widget.dart';
-import 'package:zai_x/widgets/status/app_loadding_widget.dart';
+import 'package:zai_x/widgets/page_list_view.dart';
 import 'package:get/get.dart';
 import 'package:remixicon/remixicon.dart';
 
@@ -30,13 +29,13 @@ class ComicAuthorDetailPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               NetImage(
-                controller.detail.value?.cover ?? "",
+                controller.authorInfo.value?.cover ?? "",
                 borderRadius: 24,
                 width: 32,
                 height: 32,
               ),
               AppStyle.hGap8,
-              Text(controller.detail.value?.nickname ?? "作者"),
+              Text(controller.authorInfo.value?.nickname ?? "作者"),
             ],
           ),
         ),
@@ -48,43 +47,19 @@ class ComicAuthorDetailPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Obx(
-        () => Stack(
-          children: [
-            Offstage(
-              offstage: controller.detail.value == null,
-              child: ListView.separated(
-                padding: EdgeInsets.zero,
-                itemCount: controller.detail.value?.data.length ?? 0,
-                separatorBuilder: (context, i) => Divider(
-                  endIndent: 12,
-                  indent: 12,
-                  color: Colors.grey.withValues(alpha: .2),
-                  height: 1,
-                ),
-                itemBuilder: (_, i) {
-                  var item = controller.detail.value!.data[i];
-                  return buildItem(item);
-                },
-              ),
-            ),
-            Obx(
-              () => Offstage(
-                offstage: !controller.pageLoadding.value,
-                child: const AppLoaddingWidget(),
-              ),
-            ),
-            Obx(
-              () => Offstage(
-                offstage: !controller.pageError.value,
-                child: AppErrorWidget(
-                  errorMsg: controller.errorMsg.value,
-                  onRefresh: () => controller.loadData(),
-                ),
-              ),
-            ),
-          ],
+      body: PageListView(
+        pageController: controller,
+        firstRefresh: true,
+        separatorBuilder: (context, i) => Divider(
+          endIndent: 12,
+          indent: 12,
+          color: Colors.grey.withValues(alpha: .2),
+          height: 1,
         ),
+        itemBuilder: (_, i) {
+          var item = controller.list[i];
+          return buildItem(item);
+        },
       ),
     );
   }
