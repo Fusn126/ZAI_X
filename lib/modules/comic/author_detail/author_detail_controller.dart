@@ -5,40 +5,31 @@ import 'package:zai_x/requests/comic_request.dart';
 import 'package:zai_x/services/user_service.dart';
 import 'package:get/get.dart';
 
-class ComicAuthorDetailController extends BaseController {
+class ComicAuthorDetailController
+    extends BasePageController<ComicAuthorComicModel> {
   final int id;
   ComicAuthorDetailController(this.id);
 
   final ComicRequest request = ComicRequest();
 
-  Rx<ComicAuthorModel?> detail = Rx<ComicAuthorModel?>(null);
+  /// 作者信息
+  Rx<ComicAuthorModel?> authorInfo = Rx<ComicAuthorModel?>(null);
 
   @override
-  void onInit() {
-    loadData();
-    super.onInit();
-  }
-
-  void loadData() async {
-    try {
-      pageLoadding.value = true;
-      pageError.value = false;
-      var result = await request.authorDetail(id: id);
-      detail.value = result;
-    } catch (e) {
-      pageError.value = true;
-      errorMsg.value = e.toString();
-    } finally {
-      pageLoadding.value = false;
+  Future<List<ComicAuthorComicModel>> getData(int page, int pageSize) async {
+    var result = await request.authorDetail(id: id, page: page);
+    if (page == 1) {
+      authorInfo.value = result;
     }
+    return result.data;
   }
 
   void subscribeAll() {
-    if (detail.value == null) {
+    if (list.isEmpty) {
       return;
     }
     UserService.instance.addSubscribe(
-      detail.value!.data.map((e) => e.id).toList(),
+      list.map((e) => e.id).toList(),
       AppConstant.kTypeComic,
     );
   }

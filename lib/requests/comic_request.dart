@@ -209,12 +209,13 @@ class ComicRequest {
   }
 
   /// 作者详情
-  Future<ComicAuthorModel> authorDetail({required int id}) async {
+  /// - [page] 页数，从1开始
+  Future<ComicAuthorModel> authorDetail({required int id, int page = 1}) async {
     var result = await HttpClient.instance.getJson(
       '/comic/list_by_author',
       queryParameters: {
         'tag_id': id,
-        'page': 1
+        'page': page
       },
       needLogin: true,
     );
